@@ -1,0 +1,16 @@
+extends layout
+block contenido
+    .contenido-principal
+        h2 #{nombrePagina}
+
+        if errores
+            each error in errores
+                .alerta.error #{error.texto}
+
+        form.agregar-proyecto(action=`${proyecto.nombre ? '/proyectos/editar/'+ proyecto.id : '/proyectos/nuevo'}`, method="POST")
+            .campo
+                label(for="nombre") Nombre proyecto:
+                input#nombre(type="text" name="nombre" placeholder="Nombre de proyecto", value=proyecto.nombre)
+            .campo.enviar
+                input.boton(type="submit" value=`${proyecto.nombre ? 'Guardar' : 'Crear'}`)
+        
